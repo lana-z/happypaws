@@ -103,7 +103,7 @@ export default function Home() {
                 Woof! Need a Dog Walker?
               </h1>
               <p className="text-lg">
-                Hi! I'm Livi, your friendly neighborhood dog walker in Greenbriar, 
+                Hi! I'm Livi, your friendly neighborhood dog walker in Greenbrier, 
                 Charlottesville. I'll keep your furry friend happy and healthy with 
                 fun-filled walks! 🐾
 
@@ -126,7 +126,7 @@ export default function Home() {
                   className="rounded-lg shadow-lg"
                 />
                 <div className="absolute -bottom-4 -right-4 bg-white p-4 rounded-xl shadow-lg rotate-2">
-                  <p className="text-primary font-bold">Trusted by Greenbriar families.</p>
+                  <p className="text-primary font-bold">Trusted by Greenbrier families.</p>
                   <p className="text-sm text-center">"I love dogs!" – Livi</p>
                 </div>
               </div>
@@ -141,7 +141,7 @@ export default function Home() {
           <h2 className="mb-8 text-center">Meet Your Dog Walker</h2>
           <div className="space-y-6 text-center md:text-left">
             <p className="text-lg">
-              Hey there! I'm Livi, a 13-year-old dog lover in the Greenbriar 
+              Hey there! I'm Livi, a 13-year-old dog lover in the Greenbrier 
               neighborhood. When I'm not in school, I'm making sure our 
               four-legged friends get their daily dose of fun and exercise! 🎈
             </p>
@@ -264,7 +264,7 @@ export default function Home() {
                 onChange={handleInputChange}
                 required
                 className="input-field"
-                placeholder="123 Greenbriar St"
+                placeholder="123 Greenbrier St"
               />
             </div>
 
@@ -341,7 +341,7 @@ export default function Home() {
       {/* Footer */}
       <footer className="footer-section py-8 text-center">
         <p className="text-sm">
-          2025 Livi's Dog Walking Service • Greenbriar, Charlottesville, VA 🐾
+          2025 Livi's Dog Walking Service • Greenbrier, Charlottesville, VA 🐾
         </p>
       </footer>
     </main>
