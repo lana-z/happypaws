@@ -16,12 +16,12 @@ const reviews = [
   },
   {
     text: "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.",
-    author: "– Lorem I.",
+    author: "– Lorem",
     icon: "🦮"
   },
   {
     text: "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Ut enim ad minim veniam, quis nostrud exercitation ullamco.",
-    author: "– Ipsum D.",
+    author: "– Ipsum",
     icon: "🐾"
   }
 ];
@@ -126,7 +126,7 @@ export default function Home() {
                     animate={{ x: 0, opacity: 1 }}
                     exit={{ x: -300, opacity: 0 }}
                     transition={{ duration: 0.5, ease: "easeInOut" }}
-                    className="text-4xl font-bold whitespace-nowrap text-left"
+                    className="text-4xl font-bold whitespace-nowrap text-left text-primary"
                   >
                     {headingOptions[currentHeadingIndex]}
                   </motion.h1>
