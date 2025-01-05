@@ -1,8 +1,9 @@
 "use client";
 
 import Image from "next/image";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import emailjs from "@emailjs/browser";
+import { motion, AnimatePresence } from "framer-motion";
 
 // Initialize EmailJS
 emailjs.init(process.env.NEXT_PUBLIC_EMAILJS_PUBLIC_KEY);
@@ -27,6 +28,7 @@ const reviews = [
 
 export default function Home() {
   const [currentReview, setCurrentReview] = useState(0);
+  const [currentHeadingIndex, setCurrentHeadingIndex] = useState(0);
   const [formData, setFormData] = useState({
     ownerName: "",
     phone: "",
@@ -37,6 +39,15 @@ export default function Home() {
   });
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [submitStatus, setSubmitStatus] = useState({ success: false, message: "" });
+
+  const headingOptions = [
+    "Woof! Need a Dog Walker?",
+    "Purrfect! Need a Cat Companion?",
+    "Hoppin'! Need a Rabbit Wrangler?",
+    "Chirp! Need a Bird Buddy?",
+    "Glub! Need a Fish Feeder?",
+    "Egg-citing! Need a Coop Keeper?"
+  ];
 
   const handleInputChange = (e) => {
     const { name, value } = e.target;
@@ -88,6 +99,14 @@ export default function Home() {
     }
   };
 
+  useEffect(() => {
+    const timer = setInterval(() => {
+      setCurrentHeadingIndex((prev) => (prev + 1) % headingOptions.length);
+    }, 4000); // Change text every 3 seconds
+
+    return () => clearInterval(timer);
+  }, []);
+
   return (
     <main className="min-h-screen">
       {/* Hero Section */}
@@ -99,21 +118,29 @@ export default function Home() {
                 <span className="text-4xl">🐾</span>
                 <h2 className="text-2xl font-bubblegum">Happy Paws</h2>
               </div>
-              <h1 className="text-primary">
-                Woof! Need a Dog Walker?
-              </h1>
+              <div className="relative h-[70px] overflow-hidden flex items-center">
+                <AnimatePresence mode="wait">
+                  <motion.h1
+                    key={currentHeadingIndex}
+                    initial={{ x: 300, opacity: 0 }}
+                    animate={{ x: 0, opacity: 1 }}
+                    exit={{ x: -300, opacity: 0 }}
+                    transition={{ duration: 0.5, ease: "easeInOut" }}
+                    className="text-4xl font-bold whitespace-nowrap text-left"
+                  >
+                    {headingOptions[currentHeadingIndex]}
+                  </motion.h1>
+                </AnimatePresence>
+              </div>
               <p className="text-lg">
-                Hi! I'm Livi, your friendly neighborhood dog walker in Greenbrier, 
-                Charlottesville. I'll keep your furry friend happy and healthy with 
-                fun-filled walks! 🐾
-
-                I also offer pet-sitting services!
+                Hi! I'm Livi, your friendly neighborhood dog walker and pet sitter in Greenbrier, 
+                Charlottesville. I'll keep your furry and feathered friends happy and healthy while you're away! 🐾
               </p>
               <button
                 onClick={() => document.getElementById("contact").scrollIntoView({ behavior: "smooth" })}
                 className="btn-primary"
               >
-                Book a Walk 🦮
+                Book a Visit 🦮
               </button>
             </div>
             <div className="md:w-1/2">
@@ -138,30 +165,31 @@ export default function Home() {
       {/* About Section */}
       <section className="section">
         <div className="container">
-          <h2 className="mb-8 text-center">Meet Your Dog Walker</h2>
+          <h2 className="mb-8 text-center">Meet Your Pet's Friend</h2>
           <div className="space-y-6 text-center md:text-left">
             <p className="text-lg">
-              Hey there! I'm Livi, a 13-year-old dog lover in the Greenbrier 
-              neighborhood. When I'm not in school, I'm making sure our 
-              four-legged friends get their daily dose of fun and exercise! 🎈
+              Hey there! I'm Livi, a 13-year-old animal lover in the Greenbrier 
+              neighborhood. When I'm not in school, I'm making sure your pets get their 
+              daily dose of fun, exercise, and love! Whether it's walks for dogs, 
+              playtime with cats, or caring for other furry and feathered friends, I'm here to help! 🎈
             </p>
             <div className="mt-12">
-              <h3 className="mb-6">What Your Pup Gets:</h3>
+              <h3 className="mb-6">What Your Pets Get:</h3>
               <div className="grid gap-6 md:grid-cols-2 lg:grid-cols-4">
                 <div className="card">
                   <div className="text-3xl mb-2">🦮</div>
-                  <h4 className="font-bold mb-2">Fun Walks</h4>
-                  <p>30-minute adventures around our neighborhood</p>
+                  <h4 className="font-bold mb-2">Check-ins</h4>
+                  <p>30-minutes of walks, playtime, feeding, care!</p>
                 </div>
                 <div className="card">
                   <div className="text-3xl mb-2">📱</div>
                   <h4 className="font-bold mb-2">Photo Updates</h4>
-                  <p>See how much fun your pup is having!</p>
+                  <p>See how much fun your pet is having!</p>
                 </div>
                 <div className="card">
                   <div className="text-3xl mb-2">⏰</div>
                   <h4 className="font-bold mb-2">Flexible Times</h4>
-                  <p>After school and weekend availability</p>
+                  <p>After school and weekend availability.</p>
                 </div>
                 <div className="card">
                   <div className="text-3xl mb-2">💝</div>
@@ -215,7 +243,7 @@ export default function Home() {
       {/* Contact Form Section */}
       <section id="contact" className="section">
         <div className="container">
-          <h2 className="mb-8 text-center">Book a Walk 🐾</h2>
+          <h2 className="mb-8 text-center">Schedule Pet Care 🐾</h2>
           <form onSubmit={handleSubmit} className="max-w-md mx-auto space-y-6 p-8">
             <div>
               <label htmlFor="ownerName" className="block mb-2 font-medium">
