@@ -51,10 +51,29 @@ export default function Home() {
 
   const handleInputChange = (e) => {
     const { name, value } = e.target;
-    setFormData((prev) => ({
-      ...prev,
-      [name]: value,
-    }));
+    
+    if (name === 'phone') {
+      // Remove all non-digits
+      const digits = value.replace(/\D/g, '').slice(0, 10);
+      
+      // Format the phone number
+      let formattedPhone = digits;
+      if (digits.length >= 6) {
+        formattedPhone = `${digits.slice(0, 3)}-${digits.slice(3, 6)}-${digits.slice(6)}`;
+      } else if (digits.length >= 3) {
+        formattedPhone = `${digits.slice(0, 3)}-${digits.slice(3)}`;
+      }
+      
+      setFormData((prev) => ({
+        ...prev,
+        [name]: formattedPhone,
+      }));
+    } else {
+      setFormData((prev) => ({
+        ...prev,
+        [name]: value,
+      }));
+    }
   };
 
   const handleSubmit = async (e) => {
@@ -152,7 +171,7 @@ export default function Home() {
                   height={533}
                   className="rounded-lg shadow-lg"
                 />
-                <div className="absolute -bottom-4 -right-4 bg-white p-4 rounded-xl shadow-lg rotate-2">
+                <div className="absolute -bottom-4 -right-4 bg-white p-4 rounded-xl shadow-lg rotate-2" style={{ borderTop: '6px solid #FADAEF', borderBottom: '6px solid #FADAEF' }}>
                   <p className="text-primary font-bold">Trusted by Greenbrier families.</p>
                   <p className="text-sm text-center">"I love dogs!" – Livi</p>
                 </div>
@@ -176,22 +195,22 @@ export default function Home() {
             <div className="mt-12">
               <h3 className="mb-6">What Your Pets Get:</h3>
               <div className="grid gap-6 md:grid-cols-2 lg:grid-cols-4">
-                <div className="card">
+                <div className="card" style={{ borderTop: '6px solid #FADAEF', borderBottom: '6px solid #FADAEF' }}>
                   <div className="text-3xl mb-2">🦮</div>
                   <h4 className="font-bold mb-2">Check-ins</h4>
                   <p>30-minutes of walks, playtime, feeding, care!</p>
                 </div>
-                <div className="card">
+                <div className="card" style={{ borderTop: '6px solid #FADAEF', borderBottom: '6px solid #FADAEF' }}>
                   <div className="text-3xl mb-2">📱</div>
                   <h4 className="font-bold mb-2">Photo Updates</h4>
                   <p>See how much fun your pet is having!</p>
                 </div>
-                <div className="card">
+                <div className="card" style={{ borderTop: '6px solid #FADAEF', borderBottom: '6px solid #FADAEF' }}>
                   <div className="text-3xl mb-2">⏰</div>
                   <h4 className="font-bold mb-2">Flexible Times</h4>
                   <p>After school and weekend availability.</p>
                 </div>
-                <div className="card">
+                <div className="card" style={{ borderTop: '6px solid #FADAEF', borderBottom: '6px solid #FADAEF' }}>
                   <div className="text-3xl mb-2">💝</div>
                   <h4 className="font-bold mb-2">Lots of Love</h4>
                   <p>Treats and belly rubs included!</p>
@@ -215,7 +234,7 @@ export default function Home() {
               ←
             </button>
             
-            <div className="card overflow-hidden">
+            <div className="card overflow-hidden" style={{ borderTop: '6px solid #FADAEF', borderBottom: '6px solid #FADAEF' }}>
               <div className="flex items-center gap-4 mb-4">
                 <div className="text-4xl">{reviews[currentReview].icon}</div>
                 <div>
@@ -237,13 +256,49 @@ export default function Home() {
               →
             </button>
           </div>
+          <div className="text-center mt-8">
+            <button
+              onClick={() => document.getElementById("contact").scrollIntoView({ behavior: "smooth" })}
+              className="btn-primary"
+            >
+              Book Now 🐾
+            </button>
+          </div>
+        </div>
+      </section>
+
+      {/* Pricing Section */}
+      <section className="section" style={{ backgroundColor: '#FADAEF' }}>
+        <div className="container">
+          <h2 className="mb-8 text-center">Pricing 🦮</h2>
+          <div className="grid gap-6 md:grid-cols-3 max-w-4xl mx-auto">
+            <div className="card hover:shadow-lg transition-shadow" style={{ borderTop: '4px solid #b2d167', borderBottom: '4px solid #b2d167' }}>
+              <div className="text-3xl mb-2">⏱️</div>
+              <h4 className="font-bold mb-2">15-Minute Walk</h4>
+              <p className="text-2xl font-bold text-primary mb-2">$10</p>
+              <p>A quick potty break and stretch!</p>
+            </div>
+            <div className="card hover:shadow-lg transition-shadow" style={{ borderTop: '4px solid #b2d167', borderBottom: '4px solid #b2d167' }}>
+              <div className="text-3xl mb-2">🦮</div>
+              <h4 className="font-bold mb-2">30-Minute Walk</h4>
+              <p className="text-2xl font-bold text-primary mb-2">$18</p>
+              <p>Exercise and play in the neighborhood.</p>
+            </div>
+            <div className="card hover:shadow-lg transition-shadow" style={{ borderTop: '4px solid #b2d167', borderBottom: '4px solid #b2d167' }}>
+              <div className="text-3xl mb-2">🏠</div>
+              <h4 className="font-bold mb-2">Pet Sitting</h4>
+              <p className="text-xl font-bold text-primary mb-2">Contact for Pricing</p>
+              <p>Checking in with your pet while you're away!</p>
+            </div>
+          </div>
+
         </div>
       </section>
 
       {/* Contact Form Section */}
       <section id="contact" className="section">
         <div className="container">
-          <h2 className="mb-8 text-center">Schedule Pet Care 🐾</h2>
+          <h2 className="mb-8 text-center">Schedule 🐾</h2>
           <form onSubmit={handleSubmit} className="max-w-md mx-auto space-y-6 p-8">
             <div>
               <label htmlFor="ownerName" className="block mb-2 font-medium">
@@ -257,6 +312,7 @@ export default function Home() {
                 onChange={handleInputChange}
                 required
                 className="input-field"
+                style={{ borderTop: '6px solid #FADAEF', borderBottom: '6px solid #FADAEF', borderLeft: '1px solid #FADAEF', borderRight: '1px solid #FADAEF' }}
                 placeholder="Your name"
               />
             </div>
@@ -272,7 +328,9 @@ export default function Home() {
                 value={formData.phone}
                 onChange={handleInputChange}
                 required
+                maxLength={12}
                 className="input-field"
+                style={{ borderTop: '6px solid #FADAEF', borderBottom: '6px solid #FADAEF', borderLeft: '1px solid #FADAEF', borderRight: '1px solid #FADAEF' }}
                 placeholder="434-555-0123"
               />
               <p className="mt-1 text-sm text-gray-600">
@@ -292,6 +350,7 @@ export default function Home() {
                 onChange={handleInputChange}
                 required
                 className="input-field"
+                style={{ borderTop: '6px solid #FADAEF', borderBottom: '6px solid #FADAEF', borderLeft: '1px solid #FADAEF', borderRight: '1px solid #FADAEF' }}
                 placeholder="123 Greenbrier St"
               />
             </div>
@@ -308,6 +367,7 @@ export default function Home() {
                 onChange={handleInputChange}
                 required
                 className="input-field"
+                style={{ borderTop: '6px solid #FADAEF', borderBottom: '6px solid #FADAEF', borderLeft: '1px solid #FADAEF', borderRight: '1px solid #FADAEF' }}
                 placeholder="Max"
               />
             </div>
@@ -324,6 +384,7 @@ export default function Home() {
                 onChange={handleInputChange}
                 required
                 className="input-field"
+                style={{ borderTop: '6px solid #FADAEF', borderBottom: '6px solid #FADAEF', borderLeft: '1px solid #FADAEF', borderRight: '1px solid #FADAEF' }}
                 placeholder="Dog, Cat, etc."
               />
             </div>
@@ -339,6 +400,7 @@ export default function Home() {
                 onChange={handleInputChange}
                 rows={4}
                 className="input-field"
+                style={{ borderTop: '6px solid #FADAEF', borderBottom: '6px solid #FADAEF', borderLeft: '1px solid #FADAEF', borderRight: '1px solid #FADAEF' }}
                 placeholder="Any special instructions or questions?"
               ></textarea>
             </div>
@@ -369,7 +431,7 @@ export default function Home() {
       {/* Footer */}
       <footer className="footer-section py-8 text-center">
         <p className="text-sm">
-          2025 Livi's Dog Walking Service • Greenbrier, Charlottesville, VA 🐾
+          2025 Happy Paws with Livi • Greenbrier, Charlottesville, VA 🐾
         </p>
       </footer>
     </main>
